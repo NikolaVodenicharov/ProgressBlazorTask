@@ -1,0 +1,55 @@
+﻿@page "/"
+
+<h3>Products</h3>
+<br />
+
+@{
+    var productIndex = 0;
+
+    while(productIndex < productCount)
+    {
+        <div class="container">
+        <div class="card-group">
+            @{
+                var columnNumber = 1;
+
+                while(columnNumber <= productsAtRow && productIndex < productCount)
+                {
+                    var product = HardCodedProducts.ProductsList[productIndex];
+
+                    <div class="card mb-3" style="width: 18rem;" >
+                        <img class="card-img-top" src="/pictures/shopping_bag.jpg" style="width:30%" >                       
+                        <div class="card-body">
+                        <h5 class="card-title">@product.ProductName</h5>
+                        <p class="card-text">Delivery: @product.DeliveryOn</p>
+                        <p class="card-text">Quantity: @product.UnitInStock</p>
+                        <p class="card-text">Price: $@product.UnitPrice</p>
+                            @{
+                                if(product.UnitInStock > 0)
+                                {
+                                    <a href="#" class="btn btn-primary">Add to cart</a>
+                                }
+                                else
+                                {
+                                    <p class="text-danger">Out of stock</p>
+                                }
+                            }     
+                        </div>
+                    </div>
+
+                    <br />
+                    <br />
+
+                    productIndex++;
+                    columnNumber++;
+                }
+            }
+        </div>
+        </div>
+    }
+}
+
+@code {
+    private int productCount = HardCodedProducts.ProductsList.Count;
+    private int productsAtRow = 3;
+}
